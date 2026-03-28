@@ -263,7 +263,10 @@ export function FlickerGrid({ className = '', style = {} }: { className?: string
 
 export default function FlickerGridPage() {
   const [config, setConfig] = useState<GridConfig>(DEFAULT)
-  const [speed, setSpeed] = useState(1) // global speed multiplier
+  const [speed, setSpeed] = useState(1)
+  const [brightness, setBrightness] = useState(1)
+  const [sharpness, setSharpness] = useState(1)
+  const [strength, setStrength] = useState(1)
   const [panelOpen, setPanelOpen] = useState(true)
   const [copied, setCopied] = useState<string | null>(null)
   const [exportView, setExportView] = useState<'prompt' | 'code' | null>(null)
@@ -305,7 +308,7 @@ export default function FlickerGridPage() {
     <div className="h-screen flex" style={{ backgroundColor: config.bgColor }}>
       {/* Canvas */}
       <div className="flex-1 relative">
-        <FlickerCanvas config={config} speed={speed} />
+        <FlickerCanvas config={config} speed={speed} brightness={brightness} sharpness={sharpness} strength={strength} />
 
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
           <h1 className="text-6xl font-black text-white/[0.04] tracking-tighter">flickergrid</h1>
@@ -395,20 +398,12 @@ export default function FlickerGridPage() {
           {/* Sliders */}
           <div className="flex-1 overflow-y-auto">
             <div className="px-7 py-5 space-y-6">
-              <div className="flex items-center gap-3 pb-2 border-b border-white/[0.06]">
-                <span className="text-[11px] text-white/50 font-semibold w-12 flex-shrink-0">Speed</span>
-                <div className="flex-1 relative">
-                  <input type="range" min={0.1} max={3} step={0.1} value={speed}
-                    onChange={e => setSpeed(parseFloat(e.target.value))}
-                    className="w-full"
-                    style={{
-                      background: `linear-gradient(to right, rgba(99,102,241,0.45) 0%, rgba(99,102,241,0.45) ${((speed - 0.1) / 2.9) * 100}%, rgba(255,255,255,0.06) ${((speed - 0.1) / 2.9) * 100}%, rgba(255,255,255,0.06) 100%)`,
-                      borderRadius: '100px',
-                    }}
-                  />
-                </div>
-                <span className="text-[10px] text-white/35 font-mono w-10 text-right">{speed.toFixed(1)}x</span>
-              </div>
+              <Group title="Master">
+                <MasterSlider label="Speed" value={speed} min={0.1} max={3} step={0.1} onChange={setSpeed} unit="x" />
+                <MasterSlider label="Bright" value={brightness} min={0.2} max={3} step={0.1} onChange={setBrightness} unit="x" />
+                <MasterSlider label="Sharp" value={sharpness} min={0.3} max={2} step={0.1} onChange={setSharpness} unit="x" />
+                <MasterSlider label="Power" value={strength} min={0.1} max={3} step={0.1} onChange={setStrength} unit="x" />
+              </Group>
 
               <Group title="Grid">
                 <Slider label="Spacing" value={config.spacing} min={4} max={30} step={1} onChange={v => update('spacing', v)} unit="px" />
@@ -566,16 +561,46 @@ function Slider({ label, value, min, max, step, onChange, unit }: {
   )
 }
 
+function MasterSlider({ label, value, min, max, step, onChange, unit }: {
+  label: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; unit?: string
+}) {
+  const pct = ((value - min) / (max - min)) * 100
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-[11px] text-white/50 w-10 flex-shrink-0 font-semibold">{label}</span>
+      <div className="flex-1 relative">
+        <input type="range" min={min} max={max} step={step} value={value}
+          onChange={e => onChange(parseFloat(e.target.value))}
+          className="w-full"
+          style={{
+            background: `linear-gradient(to right, rgba(139,92,246,0.5) 0%, rgba(139,92,246,0.5) ${pct}%, rgba(255,255,255,0.06) ${pct}%, rgba(255,255,255,0.06) 100%)`,
+            borderRadius: '100px',
+          }}
+        />
+      </div>
+      <span className="text-[10px] text-white/40 font-mono w-10 text-right tabular-nums">
+        {value.toFixed(1)}{unit || ''}
+      </span>
+    </div>
+  )
+}
+
 // ==================== Canvas ====================
 
-function FlickerCanvas({ config, speed = 1 }: { config: GridConfig; speed?: number }) {
+function FlickerCanvas({ config, speed = 1, brightness = 1, sharpness = 1, strength = 1 }: { config: GridConfig; speed?: number; brightness?: number; sharpness?: number; strength?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const frameRef = useRef<number>(0)
   const dotsRef = useRef<any[]>([])
   const configRef = useRef(config)
   const speedRef = useRef(speed)
+  const brightnessRef = useRef(brightness)
+  const sharpnessRef = useRef(sharpness)
+  const strengthRef = useRef(strength)
   configRef.current = config
   speedRef.current = speed
+  brightnessRef.current = brightness
+  sharpnessRef.current = sharpness
+  strengthRef.current = strength
 
   const initDots = useCallback(() => {
     const canvas = canvasRef.current
@@ -630,7 +655,16 @@ function FlickerCanvas({ config, speed = 1 }: { config: GridConfig; speed?: numb
         }
         const diff = d.targetOpacity - d.opacity, step = d.fadeSpeed / 60
         d.opacity = Math.abs(diff) < step ? d.targetOpacity : d.opacity + Math.sign(diff) * step
-        ctx.fillStyle = `rgba(${cfg.dotColor}, ${d.opacity})`
+        // Apply master controls: brightness boosts opacity, strength scales the whole effect
+        const brt = brightnessRef.current
+        const str = strengthRef.current
+        const shrp = sharpnessRef.current
+        const finalAlpha = Math.min(1, d.opacity * brt * str)
+        // Sharpness: higher = more contrast between on/off (pow curve)
+        const shaped = finalAlpha > cfg.baseAlpha * 1.5
+          ? Math.pow(finalAlpha, 1 / shrp)
+          : finalAlpha * (0.5 + 0.5 / shrp)
+        ctx.fillStyle = `rgba(${cfg.dotColor}, ${Math.min(1, shaped)})`
         ctx.fillRect(d.x, d.y, cfg.dotSize, cfg.dotSize)
       }
       frameRef.current = requestAnimationFrame(animate)
