@@ -25,131 +25,123 @@ interface GridConfig {
 
 const PRESETS: { name: string; emoji: string; config: GridConfig }[] = [
   {
-    name: 'Subtle Night', emoji: '🌙',
+    name: 'Subtle', emoji: '🌙',
     config: {
-      spacing: 10, dotSize: 1.5, baseAlpha: 0.01, litAlphaMin: 0.04, litAlphaMax: 0.16,
-      fadeInSpeed: 0.5, fadeOutSpeed: 0.3, onDurationMin: 0.8, onDurationMax: 2.5,
-      offDurationMin: 1.5, offDurationMax: 5, percentLit: 15, bgColor: '#0a0a1a', dotColor: '255,255,255',
+      spacing: 14, dotSize: 1, baseAlpha: 0.008, litAlphaMin: 0.03, litAlphaMax: 0.1,
+      fadeInSpeed: 0.3, fadeOutSpeed: 0.15, onDurationMin: 1.5, onDurationMax: 4,
+      offDurationMin: 4, offDurationMax: 12, percentLit: 8, bgColor: '#0a0a14', dotColor: '255,255,255',
     },
   },
   {
     name: 'Starfield', emoji: '✨',
     config: {
-      spacing: 8, dotSize: 1, baseAlpha: 0.005, litAlphaMin: 0.03, litAlphaMax: 0.25,
-      fadeInSpeed: 0.3, fadeOutSpeed: 0.15, onDurationMin: 1, onDurationMax: 4,
-      offDurationMin: 2, offDurationMax: 8, percentLit: 10, bgColor: '#050510', dotColor: '200,210,255',
+      spacing: 20, dotSize: 0.8, baseAlpha: 0.002, litAlphaMin: 0.05, litAlphaMax: 0.5,
+      fadeInSpeed: 0.15, fadeOutSpeed: 0.08, onDurationMin: 2, onDurationMax: 8,
+      offDurationMin: 5, offDurationMax: 20, percentLit: 4, bgColor: '#020208', dotColor: '200,210,255',
     },
   },
   {
     name: 'Matrix', emoji: '🟢',
     config: {
-      spacing: 12, dotSize: 2, baseAlpha: 0.008, litAlphaMin: 0.05, litAlphaMax: 0.3,
-      fadeInSpeed: 1.5, fadeOutSpeed: 0.8, onDurationMin: 0.2, onDurationMax: 0.8,
-      offDurationMin: 0.5, offDurationMax: 3, percentLit: 20, bgColor: '#0a0f0a', dotColor: '0,255,100',
+      spacing: 8, dotSize: 2.5, baseAlpha: 0.015, litAlphaMin: 0.1, litAlphaMax: 0.5,
+      fadeInSpeed: 2.5, fadeOutSpeed: 1.5, onDurationMin: 0.05, onDurationMax: 0.3,
+      offDurationMin: 0.1, offDurationMax: 1, percentLit: 35, bgColor: '#000800', dotColor: '0,255,70',
     },
   },
   {
     name: 'Ember', emoji: '🔥',
     config: {
-      spacing: 10, dotSize: 1.5, baseAlpha: 0.01, litAlphaMin: 0.04, litAlphaMax: 0.2,
-      fadeInSpeed: 0.4, fadeOutSpeed: 0.2, onDurationMin: 1, onDurationMax: 3,
-      offDurationMin: 2, offDurationMax: 6, percentLit: 12, bgColor: '#1a0a0a', dotColor: '255,140,50',
+      spacing: 12, dotSize: 2, baseAlpha: 0.015, litAlphaMin: 0.08, litAlphaMax: 0.4,
+      fadeInSpeed: 0.6, fadeOutSpeed: 0.2, onDurationMin: 0.5, onDurationMax: 2,
+      offDurationMin: 1, offDurationMax: 4, percentLit: 18, bgColor: '#1a0500', dotColor: '255,100,20',
     },
   },
   {
     name: 'Neon', emoji: '💜',
     config: {
-      spacing: 8, dotSize: 1.5, baseAlpha: 0.01, litAlphaMin: 0.06, litAlphaMax: 0.35,
-      fadeInSpeed: 1.2, fadeOutSpeed: 0.6, onDurationMin: 0.3, onDurationMax: 1.2,
-      offDurationMin: 0.5, offDurationMax: 2.5, percentLit: 25, bgColor: '#0a0515', dotColor: '180,80,255',
+      spacing: 6, dotSize: 1.5, baseAlpha: 0.02, litAlphaMin: 0.1, litAlphaMax: 0.55,
+      fadeInSpeed: 1.8, fadeOutSpeed: 0.8, onDurationMin: 0.1, onDurationMax: 0.6,
+      offDurationMin: 0.2, offDurationMax: 1.5, percentLit: 30, bgColor: '#0a0020', dotColor: '200,50,255',
     },
   },
   {
     name: 'Ocean', emoji: '🌊',
     config: {
-      spacing: 14, dotSize: 1, baseAlpha: 0.008, litAlphaMin: 0.03, litAlphaMax: 0.12,
-      fadeInSpeed: 0.2, fadeOutSpeed: 0.1, onDurationMin: 2, onDurationMax: 6,
-      offDurationMin: 3, offDurationMax: 10, percentLit: 8, bgColor: '#040a14', dotColor: '80,180,255',
-    },
-  },
-  {
-    name: 'Aurora', emoji: '🌌',
-    config: {
-      spacing: 9, dotSize: 1.2, baseAlpha: 0.006, litAlphaMin: 0.04, litAlphaMax: 0.22,
-      fadeInSpeed: 0.35, fadeOutSpeed: 0.2, onDurationMin: 1.5, onDurationMax: 4,
-      offDurationMin: 2, offDurationMax: 7, percentLit: 14, bgColor: '#060612', dotColor: '100,220,200',
+      spacing: 16, dotSize: 1, baseAlpha: 0.005, litAlphaMin: 0.02, litAlphaMax: 0.12,
+      fadeInSpeed: 0.12, fadeOutSpeed: 0.06, onDurationMin: 3, onDurationMax: 10,
+      offDurationMin: 5, offDurationMax: 15, percentLit: 6, bgColor: '#020810', dotColor: '60,150,255',
     },
   },
   {
     name: 'Firefly', emoji: '🐛',
     config: {
-      spacing: 18, dotSize: 2, baseAlpha: 0.003, litAlphaMin: 0.08, litAlphaMax: 0.4,
-      fadeInSpeed: 0.6, fadeOutSpeed: 0.25, onDurationMin: 0.5, onDurationMax: 2,
-      offDurationMin: 3, offDurationMax: 12, percentLit: 5, bgColor: '#080c06', dotColor: '200,255,100',
+      spacing: 28, dotSize: 3, baseAlpha: 0.0, litAlphaMin: 0.15, litAlphaMax: 0.6,
+      fadeInSpeed: 0.8, fadeOutSpeed: 0.3, onDurationMin: 0.3, onDurationMax: 1.5,
+      offDurationMin: 4, offDurationMax: 18, percentLit: 3, bgColor: '#040804', dotColor: '180,255,60',
     },
   },
   {
     name: 'Sakura', emoji: '🌸',
     config: {
-      spacing: 11, dotSize: 1.5, baseAlpha: 0.008, litAlphaMin: 0.04, litAlphaMax: 0.18,
-      fadeInSpeed: 0.3, fadeOutSpeed: 0.15, onDurationMin: 1.2, onDurationMax: 3.5,
-      offDurationMin: 2, offDurationMax: 6, percentLit: 12, bgColor: '#120810', dotColor: '255,150,180',
+      spacing: 12, dotSize: 1.8, baseAlpha: 0.01, litAlphaMin: 0.06, litAlphaMax: 0.3,
+      fadeInSpeed: 0.25, fadeOutSpeed: 0.12, onDurationMin: 1.5, onDurationMax: 5,
+      offDurationMin: 3, offDurationMax: 8, percentLit: 10, bgColor: '#140810', dotColor: '255,120,170',
     },
   },
   {
     name: 'Gold', emoji: '👑',
     config: {
-      spacing: 10, dotSize: 1.3, baseAlpha: 0.01, litAlphaMin: 0.05, litAlphaMax: 0.25,
-      fadeInSpeed: 0.5, fadeOutSpeed: 0.3, onDurationMin: 0.8, onDurationMax: 2.5,
-      offDurationMin: 1.5, offDurationMax: 5, percentLit: 16, bgColor: '#0f0c06', dotColor: '255,200,80',
+      spacing: 10, dotSize: 1.5, baseAlpha: 0.012, litAlphaMin: 0.08, litAlphaMax: 0.4,
+      fadeInSpeed: 0.5, fadeOutSpeed: 0.25, onDurationMin: 0.6, onDurationMax: 2,
+      offDurationMin: 1, offDurationMax: 4, percentLit: 20, bgColor: '#100c02', dotColor: '255,210,50',
     },
   },
   {
     name: 'Ice', emoji: '❄️',
     config: {
-      spacing: 7, dotSize: 1, baseAlpha: 0.01, litAlphaMin: 0.03, litAlphaMax: 0.15,
-      fadeInSpeed: 0.25, fadeOutSpeed: 0.12, onDurationMin: 1.5, onDurationMax: 5,
-      offDurationMin: 3, offDurationMax: 9, percentLit: 18, bgColor: '#060a12', dotColor: '180,220,255',
+      spacing: 5, dotSize: 0.8, baseAlpha: 0.015, litAlphaMin: 0.03, litAlphaMax: 0.1,
+      fadeInSpeed: 0.15, fadeOutSpeed: 0.08, onDurationMin: 2, onDurationMax: 8,
+      offDurationMin: 4, offDurationMax: 12, percentLit: 40, bgColor: '#040810', dotColor: '180,230,255',
     },
   },
   {
     name: 'Lava', emoji: '🌋',
     config: {
-      spacing: 9, dotSize: 1.8, baseAlpha: 0.012, litAlphaMin: 0.06, litAlphaMax: 0.35,
-      fadeInSpeed: 0.8, fadeOutSpeed: 0.4, onDurationMin: 0.4, onDurationMax: 1.5,
-      offDurationMin: 1, offDurationMax: 4, percentLit: 22, bgColor: '#140808', dotColor: '255,60,20',
-    },
-  },
-  {
-    name: 'Mint', emoji: '🍃',
-    config: {
-      spacing: 12, dotSize: 1.2, baseAlpha: 0.007, litAlphaMin: 0.03, litAlphaMax: 0.14,
-      fadeInSpeed: 0.3, fadeOutSpeed: 0.15, onDurationMin: 1.5, onDurationMax: 4,
-      offDurationMin: 2.5, offDurationMax: 8, percentLit: 10, bgColor: '#060f0c', dotColor: '120,255,180',
+      spacing: 7, dotSize: 2.5, baseAlpha: 0.025, litAlphaMin: 0.12, litAlphaMax: 0.55,
+      fadeInSpeed: 1.5, fadeOutSpeed: 0.6, onDurationMin: 0.15, onDurationMax: 0.8,
+      offDurationMin: 0.3, offDurationMax: 2, percentLit: 28, bgColor: '#180000', dotColor: '255,30,0',
     },
   },
   {
     name: 'Cyber', emoji: '⚡',
     config: {
-      spacing: 6, dotSize: 1, baseAlpha: 0.008, litAlphaMin: 0.05, litAlphaMax: 0.3,
-      fadeInSpeed: 2, fadeOutSpeed: 1, onDurationMin: 0.1, onDurationMax: 0.5,
-      offDurationMin: 0.3, offDurationMax: 2, percentLit: 30, bgColor: '#08080f', dotColor: '0,200,255',
+      spacing: 4, dotSize: 1, baseAlpha: 0.01, litAlphaMin: 0.08, litAlphaMax: 0.45,
+      fadeInSpeed: 3, fadeOutSpeed: 2, onDurationMin: 0.02, onDurationMax: 0.15,
+      offDurationMin: 0.05, offDurationMax: 0.8, percentLit: 40, bgColor: '#000510', dotColor: '0,220,255',
     },
   },
   {
     name: 'Sunset', emoji: '🌅',
     config: {
-      spacing: 11, dotSize: 1.5, baseAlpha: 0.009, litAlphaMin: 0.04, litAlphaMax: 0.2,
-      fadeInSpeed: 0.4, fadeOutSpeed: 0.2, onDurationMin: 1, onDurationMax: 3,
-      offDurationMin: 2, offDurationMax: 6, percentLit: 14, bgColor: '#140a08', dotColor: '255,120,60',
+      spacing: 11, dotSize: 1.8, baseAlpha: 0.01, litAlphaMin: 0.06, litAlphaMax: 0.3,
+      fadeInSpeed: 0.35, fadeOutSpeed: 0.18, onDurationMin: 1, onDurationMax: 3.5,
+      offDurationMin: 2, offDurationMax: 7, percentLit: 14, bgColor: '#150804', dotColor: '255,100,40',
     },
   },
   {
     name: 'Cosmos', emoji: '🪐',
     config: {
-      spacing: 16, dotSize: 0.8, baseAlpha: 0.004, litAlphaMin: 0.02, litAlphaMax: 0.2,
-      fadeInSpeed: 0.15, fadeOutSpeed: 0.08, onDurationMin: 2, onDurationMax: 8,
-      offDurationMin: 5, offDurationMax: 15, percentLit: 6, bgColor: '#030308', dotColor: '220,200,255',
+      spacing: 24, dotSize: 0.6, baseAlpha: 0.001, litAlphaMin: 0.03, litAlphaMax: 0.35,
+      fadeInSpeed: 0.08, fadeOutSpeed: 0.04, onDurationMin: 4, onDurationMax: 15,
+      offDurationMin: 8, offDurationMax: 25, percentLit: 3, bgColor: '#010104', dotColor: '200,180,255',
+    },
+  },
+  {
+    name: 'Mint', emoji: '🍃',
+    config: {
+      spacing: 15, dotSize: 1.2, baseAlpha: 0.005, litAlphaMin: 0.03, litAlphaMax: 0.15,
+      fadeInSpeed: 0.2, fadeOutSpeed: 0.1, onDurationMin: 2, onDurationMax: 6,
+      offDurationMin: 4, offDurationMax: 10, percentLit: 8, bgColor: '#040c08', dotColor: '80,255,160',
     },
   },
 ]
