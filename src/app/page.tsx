@@ -184,7 +184,7 @@ function generateCode(c: GridConfig): string {
   return `// FlickerGrid — Animated Dot Grid Background
 // Generated at flickergrid.dev
 
-export function FlickerGrid({ className = '', style = {} }: { className?: string; style?: React.CSSProperties }) {
+export function FlickerGrid({ className = '', speed = 1, style = {} }: { className?: string; speed?: number; style?: React.CSSProperties }) {
   return (
     <canvas
       className={className}
@@ -230,12 +230,12 @@ export function FlickerGrid({ className = '', style = {} }: { className?: string
             if (t >= d.nextToggle) {
               if (d.targetOpacity <= C.baseAlpha + 0.005) {
                 d.targetOpacity = C.litAlphaMin + Math.random() * (C.litAlphaMax - C.litAlphaMin)
-                d.fadeSpeed = C.fadeInSpeed + Math.random() * C.fadeInSpeed
-                d.nextToggle = t + C.onDurationMin + Math.random() * (C.onDurationMax - C.onDurationMin)
+                d.fadeSpeed = (C.fadeInSpeed + Math.random() * C.fadeInSpeed) * speed
+                d.nextToggle = t + (C.onDurationMin + Math.random() * (C.onDurationMax - C.onDurationMin)) / speed
               } else {
                 d.targetOpacity = C.baseAlpha
-                d.fadeSpeed = C.fadeOutSpeed + Math.random() * C.fadeOutSpeed
-                d.nextToggle = t + C.offDurationMin + Math.random() * (C.offDurationMax - C.offDurationMin)
+                d.fadeSpeed = (C.fadeOutSpeed + Math.random() * C.fadeOutSpeed) * speed
+                d.nextToggle = t + (C.offDurationMin + Math.random() * (C.offDurationMax - C.offDurationMin)) / speed
               }
             }
             const diff = d.targetOpacity - d.opacity, step = d.fadeSpeed / 60
