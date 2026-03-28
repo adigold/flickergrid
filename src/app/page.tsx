@@ -285,7 +285,8 @@ export default function FlickerGridPage() {
 
       {/* Panel */}
       {panelOpen && (
-        <div className="w-[340px] bg-[#0c0c18]/95 backdrop-blur-2xl border-l border-white/[0.06] flex flex-col flex-shrink-0 py-2">
+        <div className="w-[340px] flex flex-col flex-shrink-0 p-3 pl-3">
+        <div className="flex-1 bg-[#0c0c18]/95 backdrop-blur-2xl border border-white/[0.08] rounded-2xl flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between px-7 h-14 border-b border-white/[0.06] flex-shrink-0">
             <span className="text-xs font-semibold text-white/70">Controls</span>
@@ -390,6 +391,7 @@ export default function FlickerGridPage() {
               </button>
             </div>
           </div>
+        </div>
         </div>
       )}
 
