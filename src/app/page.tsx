@@ -263,6 +263,7 @@ export function FlickerGrid({ className = '', style = {} }: { className?: string
 
 export default function FlickerGridPage() {
   const [config, setConfig] = useState<GridConfig>(DEFAULT)
+  const [speed, setSpeed] = useState(1) // global speed multiplier
   const [panelOpen, setPanelOpen] = useState(true)
   const [copied, setCopied] = useState<string | null>(null)
   const [exportView, setExportView] = useState<'prompt' | 'code' | null>(null)
@@ -304,7 +305,7 @@ export default function FlickerGridPage() {
     <div className="h-screen flex" style={{ backgroundColor: config.bgColor }}>
       {/* Canvas */}
       <div className="flex-1 relative">
-        <FlickerCanvas config={config} />
+        <FlickerCanvas config={config} speed={speed} />
 
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
           <h1 className="text-6xl font-black text-white/[0.04] tracking-tighter">flickergrid</h1>
@@ -394,6 +395,21 @@ export default function FlickerGridPage() {
           {/* Sliders */}
           <div className="flex-1 overflow-y-auto">
             <div className="px-7 py-5 space-y-6">
+              <div className="flex items-center gap-3 pb-2 border-b border-white/[0.06]">
+                <span className="text-[11px] text-white/50 font-semibold w-12 flex-shrink-0">Speed</span>
+                <div className="flex-1 relative">
+                  <input type="range" min={0.1} max={3} step={0.1} value={speed}
+                    onChange={e => setSpeed(parseFloat(e.target.value))}
+                    className="w-full"
+                    style={{
+                      background: `linear-gradient(to right, rgba(99,102,241,0.45) 0%, rgba(99,102,241,0.45) ${((speed - 0.1) / 2.9) * 100}%, rgba(255,255,255,0.06) ${((speed - 0.1) / 2.9) * 100}%, rgba(255,255,255,0.06) 100%)`,
+                      borderRadius: '100px',
+                    }}
+                  />
+                </div>
+                <span className="text-[10px] text-white/35 font-mono w-10 text-right">{speed.toFixed(1)}x</span>
+              </div>
+
               <Group title="Grid">
                 <Slider label="Spacing" value={config.spacing} min={4} max={30} step={1} onChange={v => update('spacing', v)} unit="px" />
                 <Slider label="Size" value={config.dotSize} min={0.5} max={4} step={0.1} onChange={v => update('dotSize', v)} unit="px" />
@@ -552,12 +568,14 @@ function Slider({ label, value, min, max, step, onChange, unit }: {
 
 // ==================== Canvas ====================
 
-function FlickerCanvas({ config }: { config: GridConfig }) {
+function FlickerCanvas({ config, speed = 1 }: { config: GridConfig; speed?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const frameRef = useRef<number>(0)
   const dotsRef = useRef<any[]>([])
   const configRef = useRef(config)
+  const speedRef = useRef(speed)
   configRef.current = config
+  speedRef.current = speed
 
   const initDots = useCallback(() => {
     const canvas = canvasRef.current
@@ -596,18 +614,18 @@ function FlickerCanvas({ config }: { config: GridConfig }) {
     }
     resize(); window.addEventListener('resize', resize)
     const animate = () => {
-      const t = performance.now() / 1000; const cfg = configRef.current
+      const t = performance.now() / 1000; const cfg = configRef.current; const spd = speedRef.current
       ctx.clearRect(0, 0, w, h)
       for (const d of dotsRef.current) {
         if (t >= d.nextToggle) {
           if (d.targetOpacity <= cfg.baseAlpha + 0.005) {
             d.targetOpacity = cfg.litAlphaMin + Math.random() * (cfg.litAlphaMax - cfg.litAlphaMin)
-            d.fadeSpeed = cfg.fadeInSpeed + Math.random() * cfg.fadeInSpeed
-            d.nextToggle = t + cfg.onDurationMin + Math.random() * (cfg.onDurationMax - cfg.onDurationMin)
+            d.fadeSpeed = (cfg.fadeInSpeed + Math.random() * cfg.fadeInSpeed) * spd
+            d.nextToggle = t + (cfg.onDurationMin + Math.random() * (cfg.onDurationMax - cfg.onDurationMin)) / spd
           } else {
             d.targetOpacity = cfg.baseAlpha
-            d.fadeSpeed = cfg.fadeOutSpeed + Math.random() * cfg.fadeOutSpeed
-            d.nextToggle = t + cfg.offDurationMin + Math.random() * (cfg.offDurationMax - cfg.offDurationMin)
+            d.fadeSpeed = (cfg.fadeOutSpeed + Math.random() * cfg.fadeOutSpeed) * spd
+            d.nextToggle = t + (cfg.offDurationMin + Math.random() * (cfg.offDurationMax - cfg.offDurationMin)) / spd
           }
         }
         const diff = d.targetOpacity - d.opacity, step = d.fadeSpeed / 60
