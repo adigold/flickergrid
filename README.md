@@ -90,6 +90,6 @@ Built by [Adi Goldstein](https://adigoldstein.com) — indie developer building 
 - [MakeCanvas.me](https://makecanvas.me) — Design tool
 - [MakeForm.me](https://makeform.me) — Form builder
 - [Ambinote.me](https://ambinote.me) — Note-taking app
-- [TrackTag.me](https://tracktag.me) — Tracking tool
-- [Rehunt.me](https://rehunt.me) — Recruitment tool
+- [TrackTag.me](https://tracktag.me) — Music Tagging tool
+- [Rehunt.me](https://rehunt.me) — ProductHunt Email Digest Tool
 - [AGwatermark.com](https://agwatermark.com) — Watermarking tool
