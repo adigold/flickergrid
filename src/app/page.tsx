@@ -150,7 +150,7 @@ const DEFAULT = PRESETS[0].config
 
 // ==================== Prompt & Code Generators ====================
 
-function generatePrompt(c: GridConfig): string {
+function generatePrompt(c: GridConfig, spd: number, brt: number, shrp: number, str: number): string {
   return `Create an animated flickering dot grid background using HTML Canvas. The background should have these exact specifications:
 
 VISUAL STYLE:
@@ -168,6 +168,12 @@ ANIMATION BEHAVIOR:
 - Stay dim for ${c.offDurationMin}–${c.offDurationMax}s before possibly lighting up again
 - The effect should feel organic and ambient — like distant stars flickering
 
+MASTER CONTROLS (apply these as multipliers):
+- Speed: ${spd}x (multiply fade speeds by this, divide durations by this)
+- Brightness: ${brt}x (multiply final dot opacity by this)
+- Sharpness: ${shrp}x (apply pow(opacity, 1/sharpness) to lit dots for contrast)
+- Strength/Power: ${str}x (multiply final opacity by this on top of brightness)
+
 TECHNICAL REQUIREMENTS:
 - Use HTML5 Canvas with requestAnimationFrame for performance
 - Support window resize (recalculate grid on resize)
@@ -176,15 +182,16 @@ TECHNICAL REQUIREMENTS:
 - Use fillRect (not arc) for square dots
 - The canvas should be absolutely positioned and fill its container
 - Keep it lightweight — no external libraries needed
+- Accept speed, brightness, sharpness, and strength as props with defaults of 1
 
 The overall effect should be a subtle, mesmerizing ambient background suitable for a dark-themed website hero section or dashboard.`
 }
 
-function generateCode(c: GridConfig): string {
+function generateCode(c: GridConfig, spd: number, brt: number, shrp: number, str: number): string {
   return `// FlickerGrid — Animated Dot Grid Background
 // Generated at flickergrid.dev
 
-export function FlickerGrid({ className = '', speed = 1, style = {} }: { className?: string; speed?: number; style?: React.CSSProperties }) {
+export function FlickerGrid({ className = '', speed = ${spd}, brightness = ${brt}, sharpness = ${shrp}, strength = ${str}, style = {} }: { className?: string; speed?: number; brightness?: number; sharpness?: number; strength?: number; style?: React.CSSProperties }) {
   return (
     <canvas
       className={className}
@@ -240,7 +247,9 @@ export function FlickerGrid({ className = '', speed = 1, style = {} }: { classNa
             }
             const diff = d.targetOpacity - d.opacity, step = d.fadeSpeed / 60
             d.opacity = Math.abs(diff) < step ? d.targetOpacity : d.opacity + Math.sign(diff) * step
-            ctx.fillStyle = \`rgba(\${C.dotColor}, \${d.opacity})\`
+            let alpha = Math.min(1, d.opacity * brightness * strength)
+            alpha = alpha > C.baseAlpha * 1.5 ? Math.pow(alpha, 1 / sharpness) : alpha * (0.5 + 0.5 / sharpness)
+            ctx.fillStyle = \`rgba(\${C.dotColor}, \${Math.min(1, alpha)})\`
             ctx.fillRect(d.x, d.y, C.dotSize, C.dotSize)
           }
           frame = requestAnimationFrame(animate)
@@ -254,7 +263,7 @@ export function FlickerGrid({ className = '', speed = 1, style = {} }: { classNa
 
 // Usage:
 // <div style={{ position: 'relative', background: '${c.bgColor}', minHeight: '100vh' }}>
-//   <FlickerGrid />
+//   <FlickerGrid speed={${spd}} brightness={${brt}} sharpness={${shrp}} strength={${str}} />
 //   <div style={{ position: 'relative', zIndex: 10 }}>Your content</div>
 // </div>`
 }
@@ -497,7 +506,7 @@ export default function FlickerGridPage() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <button onClick={() => copyText(exportView === 'prompt' ? generatePrompt(config) : generateCode(config), exportView)}
+                <button onClick={() => copyText(exportView === 'prompt' ? generatePrompt(config, speed, brightness, sharpness, strength) : generateCode(config, speed, brightness, sharpness, strength), exportView)}
                   className={`px-4 py-2 text-xs font-bold rounded-lg transition-all active:scale-95 ${
                     copied === exportView
                       ? 'bg-green-500/20 text-green-400 border border-green-500/30'
@@ -514,7 +523,7 @@ export default function FlickerGridPage() {
             {/* Modal Body */}
             <div className="overflow-y-auto max-h-[calc(80vh-80px)] p-1">
               <pre className="p-5 text-[12px] leading-[1.7] text-white/50 font-mono whitespace-pre-wrap selection:bg-indigo-600/30">
-                {exportView === 'prompt' ? generatePrompt(config) : generateCode(config)}
+                {exportView === 'prompt' ? generatePrompt(config, speed, brightness, sharpness, strength) : generateCode(config, speed, brightness, sharpness, strength)}
               </pre>
             </div>
           </div>
