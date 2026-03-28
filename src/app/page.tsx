@@ -285,9 +285,9 @@ export default function FlickerGridPage() {
 
       {/* Panel */}
       {panelOpen && (
-        <div className="w-[320px] bg-[#0c0c18]/95 backdrop-blur-2xl border-l border-white/[0.06] flex flex-col flex-shrink-0">
+        <div className="w-[340px] bg-[#0c0c18]/95 backdrop-blur-2xl border-l border-white/[0.06] flex flex-col flex-shrink-0 py-2">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 h-14 border-b border-white/[0.06] flex-shrink-0">
+          <div className="flex items-center justify-between px-7 h-14 border-b border-white/[0.06] flex-shrink-0">
             <span className="text-xs font-semibold text-white/70">Controls</span>
             <div className="flex items-center gap-1">
               <button onClick={randomize} title="Randomize"
@@ -306,7 +306,7 @@ export default function FlickerGridPage() {
           </div>
 
           {/* Presets */}
-          <div className="px-6 py-4 border-b border-white/[0.06] flex-shrink-0">
+          <div className="px-7 py-4 border-b border-white/[0.06] flex-shrink-0">
             <div className="grid grid-cols-3 gap-2">
               {PRESETS.map(p => (
                 <button key={p.name} onClick={() => setConfig(p.config)}
@@ -365,7 +365,7 @@ export default function FlickerGridPage() {
           </div>
 
           {/* Export */}
-          <div className="px-6 py-5 border-t border-white/[0.06] flex-shrink-0 space-y-3">
+          <div className="px-7 py-5 border-t border-white/[0.06] flex-shrink-0 space-y-3">
             {/* Random button */}
             <button onClick={randomize}
               className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white/50 text-xs font-semibold hover:bg-white/[0.08] hover:text-white/80 hover:border-white/[0.15] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
