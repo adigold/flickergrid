@@ -72,6 +72,86 @@ const PRESETS: { name: string; emoji: string; config: GridConfig }[] = [
       offDurationMin: 3, offDurationMax: 10, percentLit: 8, bgColor: '#040a14', dotColor: '80,180,255',
     },
   },
+  {
+    name: 'Aurora', emoji: '🌌',
+    config: {
+      spacing: 9, dotSize: 1.2, baseAlpha: 0.006, litAlphaMin: 0.04, litAlphaMax: 0.22,
+      fadeInSpeed: 0.35, fadeOutSpeed: 0.2, onDurationMin: 1.5, onDurationMax: 4,
+      offDurationMin: 2, offDurationMax: 7, percentLit: 14, bgColor: '#060612', dotColor: '100,220,200',
+    },
+  },
+  {
+    name: 'Firefly', emoji: '🐛',
+    config: {
+      spacing: 18, dotSize: 2, baseAlpha: 0.003, litAlphaMin: 0.08, litAlphaMax: 0.4,
+      fadeInSpeed: 0.6, fadeOutSpeed: 0.25, onDurationMin: 0.5, onDurationMax: 2,
+      offDurationMin: 3, offDurationMax: 12, percentLit: 5, bgColor: '#080c06', dotColor: '200,255,100',
+    },
+  },
+  {
+    name: 'Sakura', emoji: '🌸',
+    config: {
+      spacing: 11, dotSize: 1.5, baseAlpha: 0.008, litAlphaMin: 0.04, litAlphaMax: 0.18,
+      fadeInSpeed: 0.3, fadeOutSpeed: 0.15, onDurationMin: 1.2, onDurationMax: 3.5,
+      offDurationMin: 2, offDurationMax: 6, percentLit: 12, bgColor: '#120810', dotColor: '255,150,180',
+    },
+  },
+  {
+    name: 'Gold', emoji: '👑',
+    config: {
+      spacing: 10, dotSize: 1.3, baseAlpha: 0.01, litAlphaMin: 0.05, litAlphaMax: 0.25,
+      fadeInSpeed: 0.5, fadeOutSpeed: 0.3, onDurationMin: 0.8, onDurationMax: 2.5,
+      offDurationMin: 1.5, offDurationMax: 5, percentLit: 16, bgColor: '#0f0c06', dotColor: '255,200,80',
+    },
+  },
+  {
+    name: 'Ice', emoji: '❄️',
+    config: {
+      spacing: 7, dotSize: 1, baseAlpha: 0.01, litAlphaMin: 0.03, litAlphaMax: 0.15,
+      fadeInSpeed: 0.25, fadeOutSpeed: 0.12, onDurationMin: 1.5, onDurationMax: 5,
+      offDurationMin: 3, offDurationMax: 9, percentLit: 18, bgColor: '#060a12', dotColor: '180,220,255',
+    },
+  },
+  {
+    name: 'Lava', emoji: '🌋',
+    config: {
+      spacing: 9, dotSize: 1.8, baseAlpha: 0.012, litAlphaMin: 0.06, litAlphaMax: 0.35,
+      fadeInSpeed: 0.8, fadeOutSpeed: 0.4, onDurationMin: 0.4, onDurationMax: 1.5,
+      offDurationMin: 1, offDurationMax: 4, percentLit: 22, bgColor: '#140808', dotColor: '255,60,20',
+    },
+  },
+  {
+    name: 'Mint', emoji: '🍃',
+    config: {
+      spacing: 12, dotSize: 1.2, baseAlpha: 0.007, litAlphaMin: 0.03, litAlphaMax: 0.14,
+      fadeInSpeed: 0.3, fadeOutSpeed: 0.15, onDurationMin: 1.5, onDurationMax: 4,
+      offDurationMin: 2.5, offDurationMax: 8, percentLit: 10, bgColor: '#060f0c', dotColor: '120,255,180',
+    },
+  },
+  {
+    name: 'Cyber', emoji: '⚡',
+    config: {
+      spacing: 6, dotSize: 1, baseAlpha: 0.008, litAlphaMin: 0.05, litAlphaMax: 0.3,
+      fadeInSpeed: 2, fadeOutSpeed: 1, onDurationMin: 0.1, onDurationMax: 0.5,
+      offDurationMin: 0.3, offDurationMax: 2, percentLit: 30, bgColor: '#08080f', dotColor: '0,200,255',
+    },
+  },
+  {
+    name: 'Sunset', emoji: '🌅',
+    config: {
+      spacing: 11, dotSize: 1.5, baseAlpha: 0.009, litAlphaMin: 0.04, litAlphaMax: 0.2,
+      fadeInSpeed: 0.4, fadeOutSpeed: 0.2, onDurationMin: 1, onDurationMax: 3,
+      offDurationMin: 2, offDurationMax: 6, percentLit: 14, bgColor: '#140a08', dotColor: '255,120,60',
+    },
+  },
+  {
+    name: 'Cosmos', emoji: '🪐',
+    config: {
+      spacing: 16, dotSize: 0.8, baseAlpha: 0.004, litAlphaMin: 0.02, litAlphaMax: 0.2,
+      fadeInSpeed: 0.15, fadeOutSpeed: 0.08, onDurationMin: 2, onDurationMax: 8,
+      offDurationMin: 5, offDurationMax: 15, percentLit: 6, bgColor: '#030308', dotColor: '220,200,255',
+    },
+  },
 ]
 
 const DEFAULT = PRESETS[0].config
