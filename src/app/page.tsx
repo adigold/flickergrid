@@ -197,6 +197,31 @@ export default function FlickerGridPage() {
 
   const update = (key: keyof GridConfig, value: number | string) => setConfig(p => ({ ...p, [key]: value }))
 
+  const randomize = () => {
+    const bgHue = Math.floor(Math.random() * 360)
+    const dotHues = [
+      `${150 + Math.floor(Math.random() * 106)},${150 + Math.floor(Math.random() * 106)},${150 + Math.floor(Math.random() * 106)}`,
+      '255,255,255',
+      `${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},255`,
+    ]
+    setConfig({
+      spacing: 6 + Math.floor(Math.random() * 18),
+      dotSize: 0.8 + Math.random() * 2.2,
+      baseAlpha: 0.005 + Math.random() * 0.02,
+      litAlphaMin: 0.03 + Math.random() * 0.08,
+      litAlphaMax: 0.1 + Math.random() * 0.3,
+      fadeInSpeed: 0.2 + Math.random() * 1.5,
+      fadeOutSpeed: 0.1 + Math.random() * 1,
+      onDurationMin: 0.2 + Math.random() * 2,
+      onDurationMax: 1 + Math.random() * 5,
+      offDurationMin: 0.5 + Math.random() * 4,
+      offDurationMax: 2 + Math.random() * 12,
+      percentLit: 5 + Math.floor(Math.random() * 30),
+      bgColor: `hsl(${bgHue}, ${20 + Math.floor(Math.random() * 30)}%, ${3 + Math.floor(Math.random() * 8)}%)`,
+      dotColor: dotHues[Math.floor(Math.random() * dotHues.length)],
+    })
+  }
+
   const copyText = (text: string, label: string) => {
     navigator.clipboard.writeText(text)
     setCopied(label)
@@ -260,93 +285,106 @@ export default function FlickerGridPage() {
 
       {/* Panel */}
       {panelOpen && (
-        <div className="w-[300px] bg-[#0c0c18]/90 backdrop-blur-xl border-l border-white/[0.06] flex flex-col flex-shrink-0">
+        <div className="w-[320px] bg-[#0c0c18]/95 backdrop-blur-2xl border-l border-white/[0.06] flex flex-col flex-shrink-0">
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
-            <span className="text-[11px] font-bold text-white/60 uppercase tracking-[0.15em]">Controls</span>
-            <div className="flex items-center gap-1.5">
-              <button onClick={() => setConfig(DEFAULT)}
-                className="text-[10px] text-white/25 hover:text-white/60 px-2.5 py-1 rounded-md hover:bg-white/[0.06] transition-all">
-                Reset
+          <div className="flex items-center justify-between px-6 h-14 border-b border-white/[0.06] flex-shrink-0">
+            <span className="text-xs font-semibold text-white/70">Controls</span>
+            <div className="flex items-center gap-1">
+              <button onClick={randomize} title="Randomize"
+                className="p-2 text-white/25 hover:text-white/70 rounded-lg hover:bg-white/[0.06] transition-all" >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
               </button>
-              <button onClick={() => setPanelOpen(false)}
-                className="p-1 text-white/20 hover:text-white/60 rounded-md hover:bg-white/[0.06] transition-all">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+              <button onClick={() => setConfig(DEFAULT)} title="Reset"
+                className="p-2 text-white/25 hover:text-white/70 rounded-lg hover:bg-white/[0.06] transition-all">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+              </button>
+              <button onClick={() => setPanelOpen(false)} title="Close"
+                className="p-2 text-white/25 hover:text-white/70 rounded-lg hover:bg-white/[0.06] transition-all">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
               </button>
             </div>
           </div>
 
           {/* Presets */}
-          <div className="px-5 py-4 border-b border-white/[0.06]">
-            <div className="grid grid-cols-3 gap-1.5">
+          <div className="px-5 py-4 border-b border-white/[0.06] flex-shrink-0">
+            <div className="grid grid-cols-3 gap-2">
               {PRESETS.map(p => (
                 <button key={p.name} onClick={() => setConfig(p.config)}
-                  className="group flex flex-col items-center gap-1 px-2 py-2.5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.07] hover:border-white/[0.12] transition-all">
-                  <span className="text-sm">{p.emoji}</span>
-                  <span className="text-[10px] text-white/35 group-hover:text-white/70 transition-colors font-medium">{p.name}</span>
+                  className="group flex flex-col items-center gap-1.5 px-2 py-3 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.07] hover:border-white/[0.15] transition-all active:scale-[0.97]">
+                  <span className="text-base leading-none">{p.emoji}</span>
+                  <span className="text-[10px] text-white/30 group-hover:text-white/70 transition-colors font-medium leading-none">{p.name}</span>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Sliders */}
-          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-6">
-            <Group title="Grid">
-              <Slider label="Spacing" value={config.spacing} min={4} max={30} step={1} onChange={v => update('spacing', v)} unit="px" />
-              <Slider label="Size" value={config.dotSize} min={0.5} max={4} step={0.1} onChange={v => update('dotSize', v)} unit="px" />
-              <Slider label="Lit %" value={config.percentLit} min={0} max={50} step={1} onChange={v => update('percentLit', v)} unit="%" />
-            </Group>
+          <div className="flex-1 overflow-y-auto">
+            <div className="px-6 py-5 space-y-6">
+              <Group title="Grid">
+                <Slider label="Spacing" value={config.spacing} min={4} max={30} step={1} onChange={v => update('spacing', v)} unit="px" />
+                <Slider label="Size" value={config.dotSize} min={0.5} max={4} step={0.1} onChange={v => update('dotSize', v)} unit="px" />
+                <Slider label="Lit %" value={config.percentLit} min={0} max={50} step={1} onChange={v => update('percentLit', v)} unit="%" />
+              </Group>
 
-            <Group title="Opacity">
-              <Slider label="Base" value={config.baseAlpha} min={0} max={0.1} step={0.002} onChange={v => update('baseAlpha', v)} />
-              <Slider label="Min" value={config.litAlphaMin} min={0.01} max={0.3} step={0.005} onChange={v => update('litAlphaMin', v)} />
-              <Slider label="Max" value={config.litAlphaMax} min={0.05} max={0.6} step={0.01} onChange={v => update('litAlphaMax', v)} />
-            </Group>
+              <Group title="Opacity">
+                <Slider label="Base" value={config.baseAlpha} min={0} max={0.1} step={0.002} onChange={v => update('baseAlpha', v)} />
+                <Slider label="Min" value={config.litAlphaMin} min={0.01} max={0.3} step={0.005} onChange={v => update('litAlphaMin', v)} />
+                <Slider label="Max" value={config.litAlphaMax} min={0.05} max={0.6} step={0.01} onChange={v => update('litAlphaMax', v)} />
+              </Group>
 
-            <Group title="Fade">
-              <Slider label="In" value={config.fadeInSpeed} min={0.1} max={3} step={0.05} onChange={v => update('fadeInSpeed', v)} unit="s" />
-              <Slider label="Out" value={config.fadeOutSpeed} min={0.1} max={3} step={0.05} onChange={v => update('fadeOutSpeed', v)} unit="s" />
-            </Group>
+              <Group title="Fade">
+                <Slider label="In" value={config.fadeInSpeed} min={0.1} max={3} step={0.05} onChange={v => update('fadeInSpeed', v)} unit="s" />
+                <Slider label="Out" value={config.fadeOutSpeed} min={0.1} max={3} step={0.05} onChange={v => update('fadeOutSpeed', v)} unit="s" />
+              </Group>
 
-            <Group title="Duration">
-              <Slider label="On ↓" value={config.onDurationMin} min={0.1} max={5} step={0.1} onChange={v => update('onDurationMin', v)} unit="s" />
-              <Slider label="On ↑" value={config.onDurationMax} min={0.5} max={10} step={0.1} onChange={v => update('onDurationMax', v)} unit="s" />
-              <Slider label="Off ↓" value={config.offDurationMin} min={0.1} max={10} step={0.1} onChange={v => update('offDurationMin', v)} unit="s" />
-              <Slider label="Off ↑" value={config.offDurationMax} min={1} max={20} step={0.5} onChange={v => update('offDurationMax', v)} unit="s" />
-            </Group>
+              <Group title="Duration">
+                <Slider label="On ↓" value={config.onDurationMin} min={0.1} max={5} step={0.1} onChange={v => update('onDurationMin', v)} unit="s" />
+                <Slider label="On ↑" value={config.onDurationMax} min={0.5} max={10} step={0.1} onChange={v => update('onDurationMax', v)} unit="s" />
+                <Slider label="Off ↓" value={config.offDurationMin} min={0.1} max={10} step={0.1} onChange={v => update('offDurationMin', v)} unit="s" />
+                <Slider label="Off ↑" value={config.offDurationMax} min={1} max={20} step={0.5} onChange={v => update('offDurationMax', v)} unit="s" />
+              </Group>
 
-            <Group title="Colors">
-              <div className="flex items-center gap-3">
-                <span className="text-[11px] text-white/25 w-10">BG</span>
-                <div className="flex items-center gap-2 flex-1">
-                  <input type="color" value={config.bgColor} onChange={e => update('bgColor', e.target.value)}
-                    className="w-8 h-8 rounded-lg cursor-pointer bg-transparent border border-white/[0.1]" />
-                  <span className="text-[11px] text-white/20 font-mono">{config.bgColor}</span>
+              <Group title="Colors">
+                <div className="flex items-center gap-3 py-1">
+                  <span className="text-[11px] text-white/30 w-10">BG</span>
+                  <div className="flex items-center gap-3 flex-1">
+                    <input type="color" value={config.bgColor} onChange={e => update('bgColor', e.target.value)}
+                      className="w-9 h-9 rounded-lg cursor-pointer bg-transparent border border-white/[0.1]" />
+                    <span className="text-[11px] text-white/25 font-mono">{config.bgColor}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-[11px] text-white/25 w-10">Dots</span>
-                <input type="text" value={config.dotColor} onChange={e => update('dotColor', e.target.value)}
-                  placeholder="R,G,B"
-                  className="flex-1 px-3 py-1.5 bg-white/[0.03] border border-white/[0.08] rounded-lg text-[11px] text-white/60 font-mono focus:outline-none focus:border-indigo-500/40 transition-colors" />
-              </div>
-            </Group>
+                <div className="flex items-center gap-3 py-1">
+                  <span className="text-[11px] text-white/30 w-10">Dots</span>
+                  <input type="text" value={config.dotColor} onChange={e => update('dotColor', e.target.value)}
+                    placeholder="R,G,B"
+                    className="flex-1 px-3 py-2 bg-white/[0.04] border border-white/[0.08] rounded-lg text-[11px] text-white/60 font-mono focus:outline-none focus:border-indigo-500/30 focus:bg-white/[0.06] transition-all" />
+                </div>
+              </Group>
+            </div>
           </div>
 
           {/* Export */}
-          <div className="px-5 py-4 border-t border-white/[0.06]">
+          <div className="px-5 py-5 border-t border-white/[0.06] flex-shrink-0 space-y-3">
+            {/* Random button */}
+            <button onClick={randomize}
+              className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white/50 text-xs font-semibold hover:bg-white/[0.08] hover:text-white/80 hover:border-white/[0.15] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+              Randomize
+            </button>
+            {/* Export buttons */}
             <div className="flex gap-2">
               <button onClick={() => setExportView('prompt')}
-                className="flex-1 group relative px-4 py-3 rounded-xl bg-gradient-to-b from-indigo-500 to-indigo-600 text-white text-xs font-bold shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/40 hover:from-indigo-400 hover:to-indigo-500 transition-all active:scale-[0.98]">
-                <span className="flex items-center justify-center gap-1.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
+                className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-b from-indigo-500 to-indigo-600 text-white text-xs font-bold shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/35 hover:from-indigo-400 hover:to-indigo-500 transition-all active:scale-[0.97]">
+                <span className="flex items-center justify-center gap-2">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
                   Prompt
                 </span>
               </button>
               <button onClick={() => setExportView('code')}
-                className="flex-1 group px-4 py-3 rounded-xl bg-white/[0.06] border border-white/[0.1] text-white/70 text-xs font-bold hover:bg-white/[0.1] hover:text-white hover:border-white/[0.15] transition-all active:scale-[0.98]">
-                <span className="flex items-center justify-center gap-1.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
+                className="flex-1 px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.1] text-white/60 text-xs font-bold hover:bg-white/[0.09] hover:text-white hover:border-white/[0.18] transition-all active:scale-[0.97]">
+                <span className="flex items-center justify-center gap-2">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
                   Code
                 </span>
               </button>
@@ -409,12 +447,10 @@ export default function FlickerGridPage() {
 function Group({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-3">
-      <div className="flex items-center gap-2">
-        <div className="h-px flex-1 bg-white/[0.04]" />
-        <span className="text-[9px] font-bold text-white/20 uppercase tracking-[0.2em]">{title}</span>
-        <div className="h-px flex-1 bg-white/[0.04]" />
+      <span className="text-[10px] font-semibold text-white/20 uppercase tracking-[0.15em] block">{title}</span>
+      <div className="space-y-3 pl-0.5">
+        {children}
       </div>
-      {children}
     </div>
   )
 }
@@ -422,12 +458,21 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 function Slider({ label, value, min, max, step, onChange, unit }: {
   label: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; unit?: string
 }) {
+  const pct = ((value - min) / (max - min)) * 100
   return (
-    <div className="flex items-center gap-2">
-      <span className="text-[11px] text-white/25 w-10 flex-shrink-0">{label}</span>
-      <input type="range" min={min} max={max} step={step} value={value}
-        onChange={e => onChange(parseFloat(e.target.value))} className="flex-1" />
-      <span className="text-[10px] text-white/30 font-mono w-12 text-right tabular-nums">
+    <div className="flex items-center gap-3">
+      <span className="text-[11px] text-white/30 w-10 flex-shrink-0 font-medium">{label}</span>
+      <div className="flex-1 relative">
+        <input type="range" min={min} max={max} step={step} value={value}
+          onChange={e => onChange(parseFloat(e.target.value))}
+          className="w-full"
+          style={{
+            background: `linear-gradient(to right, rgba(99,102,241,0.45) 0%, rgba(99,102,241,0.45) ${pct}%, rgba(255,255,255,0.06) ${pct}%, rgba(255,255,255,0.06) 100%)`,
+            borderRadius: '100px',
+          }}
+        />
+      </div>
+      <span className="text-[10px] text-white/35 font-mono w-14 text-right tabular-nums">
         {value % 1 === 0 ? value : value.toFixed(step < 0.01 ? 3 : step < 0.1 ? 2 : 1)}{unit || ''}
       </span>
     </div>
