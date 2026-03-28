@@ -362,33 +362,30 @@ export default function FlickerGridPage() {
                     className="flex-1 px-3 py-2 bg-white/[0.04] border border-white/[0.08] rounded-lg text-[11px] text-white/60 font-mono focus:outline-none focus:border-indigo-500/30 focus:bg-white/[0.06] transition-all" />
                 </div>
               </Group>
-            </div>
-          </div>
-
-          {/* Export */}
-          <div className="px-7 py-5 border-t border-white/[0.06] flex-shrink-0 space-y-3">
-            {/* Random button */}
-            <button onClick={randomize}
-              className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white/50 text-xs font-semibold hover:bg-white/[0.08] hover:text-white/80 hover:border-white/[0.15] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
-              Randomize
-            </button>
-            {/* Export buttons */}
-            <div className="flex gap-2">
-              <button onClick={() => setExportView('prompt')}
-                className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-b from-indigo-500 to-indigo-600 text-white text-xs font-bold shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/35 hover:from-indigo-400 hover:to-indigo-500 transition-all active:scale-[0.97]">
-                <span className="flex items-center justify-center gap-2">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
-                  Prompt
-                </span>
-              </button>
-              <button onClick={() => setExportView('code')}
-                className="flex-1 px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.1] text-white/60 text-xs font-bold hover:bg-white/[0.09] hover:text-white hover:border-white/[0.18] transition-all active:scale-[0.97]">
-                <span className="flex items-center justify-center gap-2">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
-                  Code
-                </span>
-              </button>
+              {/* Buttons */}
+              <div className="mt-10 mb-4 space-y-4">
+                <button onClick={randomize}
+                  className="group w-full h-11 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white/50 text-[13px] font-semibold hover:bg-white/[0.08] hover:text-white/80 hover:border-white/[0.15] transition-all active:scale-[0.98] flex items-center justify-center gap-2.5">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:rotate-180 transition-transform duration-500"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+                  Randomize
+                </button>
+                <div className="flex gap-2.5">
+                  <button onClick={() => setExportView('prompt')}
+                    className="flex-1 h-12 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-500 text-white text-[13px] font-bold shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/40 hover:brightness-110 transition-all active:scale-[0.97]">
+                    <span className="flex items-center justify-center gap-2">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
+                      Prompt
+                    </span>
+                  </button>
+                  <button onClick={() => setExportView('code')}
+                    className="flex-1 h-12 rounded-xl bg-white/[0.06] border border-white/[0.1] text-white/60 text-[13px] font-bold hover:bg-white/[0.1] hover:text-white hover:border-white/[0.18] transition-all active:scale-[0.97]">
+                    <span className="flex items-center justify-center gap-2">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
+                      Code
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
