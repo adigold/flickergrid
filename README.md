@@ -4,7 +4,6 @@
 
 [flickergrid.vercel.app](https://flickergrid.vercel.app) is a free, open-source tool that lets you create and customize animated dot grid backgrounds (like the ones used by Linear, Vercel, and Efficient.app) with a visual editor. Export as code or as an AI prompt you can paste into any code agent.
 
-![FlickerGrid Preview](https://flickergrid.vercel.app/og.png)
 
 ---
 
