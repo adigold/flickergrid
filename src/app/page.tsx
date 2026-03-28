@@ -306,7 +306,7 @@ export default function FlickerGridPage() {
           </div>
 
           {/* Presets */}
-          <div className="px-5 py-4 border-b border-white/[0.06] flex-shrink-0">
+          <div className="px-6 py-4 border-b border-white/[0.06] flex-shrink-0">
             <div className="grid grid-cols-3 gap-2">
               {PRESETS.map(p => (
                 <button key={p.name} onClick={() => setConfig(p.config)}
@@ -320,7 +320,7 @@ export default function FlickerGridPage() {
 
           {/* Sliders */}
           <div className="flex-1 overflow-y-auto">
-            <div className="px-6 py-5 space-y-6">
+            <div className="px-7 py-5 space-y-6">
               <Group title="Grid">
                 <Slider label="Spacing" value={config.spacing} min={4} max={30} step={1} onChange={v => update('spacing', v)} unit="px" />
                 <Slider label="Size" value={config.dotSize} min={0.5} max={4} step={0.1} onChange={v => update('dotSize', v)} unit="px" />
@@ -365,7 +365,7 @@ export default function FlickerGridPage() {
           </div>
 
           {/* Export */}
-          <div className="px-5 py-5 border-t border-white/[0.06] flex-shrink-0 space-y-3">
+          <div className="px-6 py-5 border-t border-white/[0.06] flex-shrink-0 space-y-3">
             {/* Random button */}
             <button onClick={randomize}
               className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white/50 text-xs font-semibold hover:bg-white/[0.08] hover:text-white/80 hover:border-white/[0.15] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
