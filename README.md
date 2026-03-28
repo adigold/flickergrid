@@ -2,9 +2,9 @@
 
 **Beautiful animated flickering dot grid backgrounds — generated in seconds.**
 
-[flickergrid.dev](https://flickergrid.dev) is a free, open-source tool that lets you create and customize animated dot grid backgrounds (like the ones used by Linear, Vercel, and Efficient.app) with a visual editor. Export as code or as an AI prompt you can paste into any code agent.
+[flickergrid.vercel.app](https://flickergrid.vercel.app) is a free, open-source tool that lets you create and customize animated dot grid backgrounds (like the ones used by Linear, Vercel, and Efficient.app) with a visual editor. Export as code or as an AI prompt you can paste into any code agent.
 
-![FlickerGrid Preview](https://flickergrid.dev/og.png)
+![FlickerGrid Preview](https://flickergrid.vercel.app/og.png)
 
 ---
 
@@ -26,7 +26,7 @@ FlickerGrid gives you full control over every parameter with real-time preview, 
 
 ## How to use
 
-1. Go to [flickergrid.dev](https://flickergrid.dev)
+1. Go to [flickergrid.vercel.app](https://flickergrid.vercel.app)
 2. Adjust the sliders until you like the effect
 3. Click **"Prompt"** to get an AI-ready prompt, or **"Code"** to get a React component
 4. Paste into your project
